@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/context/CartContext'
-import FloatingCallButton from '@/components/FloatingCallButton'
+import ChatBot from '@/components/ChatBot'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <CartProvider>
           {children}
-          <FloatingCallButton />
+          <ChatBot />
         </CartProvider>
       </body>
     </html>
