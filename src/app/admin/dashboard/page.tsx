@@ -16,6 +16,7 @@ export default function AdminDashboard() {
     outOfStock: 0
   })
   const [loading, setLoading] = useState(true)
+  const [backupLoading, setBackupLoading] = useState(false)
 
   useEffect(() => {
     const auth = localStorage.getItem('adminAuth')
@@ -72,6 +73,68 @@ export default function AdminDashboard() {
       console.error('Error fetching stats:', error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  // ============================================
+  // BACKUP FUNCTION
+  // ============================================
+  const handleBackup = async () => {
+    if (!confirm('📦 This will download a complete backup of your data (products, orders, customers, etc.). Continue?')) return
+    
+    setBackupLoading(true)
+    
+    try {
+      const tables = [
+        'products',
+        'product_variants', 
+        'product_images',
+        'orders',
+        'order_items',
+        'customers',
+        'categories',
+        'inventory_transactions'
+      ]
+      
+      const backupData: any = {
+        exported_at: new Date().toISOString(),
+        store: 'NADS BEAUTY BAR'
+      }
+      
+      for (const table of tables) {
+        const { data, error } = await supabase.from(table).select('*')
+        if (error) {
+          console.warn(`⚠️ Could not backup ${table}:`, error.message)
+          backupData[table] = []
+        } else {
+          backupData[table] = data || []
+        }
+      }
+      
+      // Add stats to backup
+      backupData.stats = stats
+      
+      // Create JSON file
+      const json = JSON.stringify(backupData, null, 2)
+      const blob = new Blob([json], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      
+      // Download
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `nads-beauty-bar-backup-${new Date().toISOString().slice(0,10)}.json`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+      
+      const totalRecords = Object.values(backupData).reduce((sum: number, arr: any) => sum + (Array.isArray(arr) ? arr.length : 0), 0)
+      alert(`✅ Backup completed successfully!\n\n📊 Total records backed up: ${totalRecords}\n📁 File: nads-beauty-bar-backup-${new Date().toISOString().slice(0,10)}.json`)
+    } catch (error: any) {
+      alert('❌ Error creating backup: ' + error.message)
+      console.error('Backup error:', error)
+    } finally {
+      setBackupLoading(false)
     }
   }
 
@@ -179,12 +242,32 @@ export default function AdminDashboard() {
                     📦 Manage Products
                   </Link>
                   <button
-                    onClick={() => fetchStats()}
-                    className="bg-green-600 text-white p-4 rounded-lg text-center hover:bg-green-700 transition font-medium"
+                    onClick={handleBackup}
+                    disabled={backupLoading}
+                    className="bg-green-600 text-white p-4 rounded-lg text-center hover:bg-green-700 transition font-medium disabled:opacity-50"
                   >
-                    🔄 Refresh
+                    {backupLoading ? '⏳ Backing up...' : '💾 Backup'}
                   </button>
                 </div>
+              </div>
+
+              {/* Backup Info */}
+              <div className="mt-6 bg-white rounded-lg shadow p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">💾 Backup Information</h3>
+                <p className="text-sm text-gray-600">
+                  Click the <strong>"Backup"</strong> button above to download a complete backup of your store data including:
+                </p>
+                <ul className="mt-2 text-sm text-gray-600 list-disc list-inside">
+                  <li>Products & Variants</li>
+                  <li>Product Images</li>
+                  <li>Orders & Order Items</li>
+                  <li>Customers</li>
+                  <li>Categories</li>
+                  <li>Inventory Transactions</li>
+                </ul>
+                <p className="text-xs text-gray-400 mt-2">
+                  📁 Files are downloaded as JSON and can be used to restore your data if needed.
+                </p>
               </div>
             </>
           )}

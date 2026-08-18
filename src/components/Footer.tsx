@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-4">NADS BEAUTY BAR</h3>
             <p className="text-gray-400 text-sm">WEARIT.LOVEIT.OWNIT.</p>
-            <p className="text-gray-400 text-sm mt-2">Akobalm Balm Street, Sepe Timpon</p>
+            <p className="text-gray-400 text-sm mt-2">Akobalm Street, Sepe Timpon, Kumasi</p>
             <p className="text-gray-400 text-sm">Near Benab Oil</p>
           </div>
           <div>
