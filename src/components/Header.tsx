@@ -5,6 +5,7 @@ import { useCart } from '@/context/CartContext'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import MobileMenu from './MobileMenu'
+import SearchBar from './SearchBar'
 
 interface HeaderProps {
   activeGender?: string
@@ -84,7 +85,8 @@ export default function Header({ activeGender }: HeaderProps) {
             📞 Call Us
           </a>
           
-          <button className="hover:text-pink-600 transition text-xl">🔍</button>
+          {/* Search Bar */}
+          <SearchBar />
           
           <Link href="/cart" className="hover:text-pink-600 transition text-xl relative">
             🛒
