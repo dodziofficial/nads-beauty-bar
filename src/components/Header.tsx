@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useCart } from '@/context/CartContext'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
+import MobileMenu from './MobileMenu'
 
 interface HeaderProps {
   activeGender?: string
@@ -13,7 +14,6 @@ export default function Header({ activeGender }: HeaderProps) {
   const { totalItems } = useCart()
   const pathname = usePathname()
 
-  // Determine which gender is active based on the URL path or prop
   const getActiveGender = () => {
     if (activeGender) return activeGender
     if (pathname === '/men') return 'men'
@@ -42,12 +42,12 @@ export default function Header({ activeGender }: HeaderProps) {
             />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">NADS BEAUTY BAR</h1>
-            <p className="text-xs text-gray-600">WEARIT.LOVEIT.OWNIT.</p>
+            <h1 className="text-xl font-bold text-gray-900 hidden sm:block">NADS BEAUTY BAR</h1>
+            <p className="text-xs text-gray-600 hidden sm:block">WEARIT.LOVEIT.OWNIT.</p>
           </div>
         </Link>
 
-        {/* Navigation */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 font-medium">
           <Link href="/" className={`hover:text-pink-600 transition ${pathname === '/' ? 'text-pink-600 font-bold' : 'text-gray-800'}`}>
             Home
@@ -71,7 +71,7 @@ export default function Header({ activeGender }: HeaderProps) {
             Unisex
           </Link>
           <Link href="/cosmetics" className={`hover:text-pink-600 transition ${active === 'cosmetics' ? 'text-pink-600 font-bold' : 'text-gray-800'}`}>
-            💄 Cosmetics
+            Cosmetics
           </Link>
         </nav>
 
@@ -85,6 +85,7 @@ export default function Header({ activeGender }: HeaderProps) {
           </a>
           
           <button className="hover:text-pink-600 transition text-xl">🔍</button>
+          
           <Link href="/cart" className="hover:text-pink-600 transition text-xl relative">
             🛒
             {totalItems > 0 && (
@@ -93,6 +94,9 @@ export default function Header({ activeGender }: HeaderProps) {
               </span>
             )}
           </Link>
+
+          {/* Mobile Menu */}
+          <MobileMenu />
         </div>
       </div>
     </header>
