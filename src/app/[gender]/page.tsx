@@ -5,7 +5,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 // ============================================
-// FIX: Make this page dynamic (always fetch fresh data)
+// MAKE DYNAMIC - ALWAYS FETCH FRESH DATA
 // ============================================
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -19,15 +19,12 @@ interface GenderPageProps {
 export default async function GenderPage({ params }: GenderPageProps) {
   const { gender } = await params
   
-  // Validate gender
+  // Validate gender - ALL GENDERS INCLUDING COSMETICS
   const validGenders = ['men', 'women', 'boys', 'girls', 'unisex', 'cosmetics']
   if (!validGenders.includes(gender)) {
     notFound()
   }
 
-  // ============================================
-  // FIX: Fetch products WITH images
-  // ============================================
   const { data: products } = await supabase
     .from('products')
     .select(`
@@ -60,10 +57,12 @@ export default async function GenderPage({ params }: GenderPageProps) {
       <Header activeGender={gender} />
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-gray-900">{genderEmojis[gender]} {genderNames[gender]} Collection</h1>
+        <h1 className="text-3xl font-bold mb-8 text-gray-900">
+          {genderEmojis[gender]} {genderNames[gender]} Collection
+        </h1>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products?.map((product) => {
-            // Get the primary image or first image
             const primaryImage = product.images?.find((img: any) => img.is_primary) || product.images?.[0]
             
             return (
@@ -106,6 +105,7 @@ export default async function GenderPage({ params }: GenderPageProps) {
             )
           })}
         </div>
+        
         {products?.length === 0 && (
           <p className="text-center text-gray-500 py-12">No products in this category yet.</p>
         )}
