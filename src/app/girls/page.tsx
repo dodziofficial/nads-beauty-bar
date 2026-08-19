@@ -3,6 +3,12 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
+// ============================================
+// MAKE DYNAMIC - ALWAYS FETCH FRESH DATA
+// ============================================
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function GirlsPage() {
   const { data: products } = await supabase
     .from('products')
@@ -57,7 +63,7 @@ export default async function GirlsPage() {
                       <span className="text-pink-600 font-bold">GHS {product.price}</span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 capitalize mt-1">{product.gender}</p>
+                  <p className="text-sm text-gray-600 capitalize mt-1">Girls</p>
                 </div>
               </Link>
             )
@@ -68,7 +74,7 @@ export default async function GirlsPage() {
         )}
       </div>
 
-<Footer />
+      <Footer />
     </main>
   )
 }
