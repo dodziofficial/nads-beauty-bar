@@ -4,8 +4,11 @@ import Header from '@/components/Header'
 import HomeSlideshow from '@/components/HomeSlideshow'
 import Footer from '@/components/Footer'
 
-// ... in the return statement:
-<Footer />
+// ============================================
+// FIX: Make this page dynamic (always fetch fresh data)
+// ============================================
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default async function Home() {
   const { data: products, error } = await supabase
@@ -57,157 +60,157 @@ export default async function Home() {
       </section>
 
       {/* Makeup & Beauty Services Section */}
-<section className="py-16 bg-gradient-to-r from-pink-100 via-purple-100 to-indigo-100" id="services">
-  <div className="container mx-auto px-4">
-    <div className="text-center mb-12">
-      <span className="text-4xl block mb-2">💄</span>
-      <h2 className="text-3xl font-bold text-gray-900">Makeup & Beauty Services</h2>
-      <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
-        Professional cosmetology services for every occasion — at our studio or in the comfort of your home.
-      </p>
-    </div>
+      <section className="py-16 bg-gradient-to-r from-pink-100 via-purple-100 to-indigo-100" id="services">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="text-4xl block mb-2">💄</span>
+            <h2 className="text-3xl font-bold text-gray-900">Makeup & Beauty Services</h2>
+            <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
+              Professional cosmetology services for every occasion — at our studio or in the comfort of your home.
+            </p>
+          </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-      {/* Service 1: Bridal Makeup */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
-        <div className="h-48 overflow-hidden">
-          <img
-            src="/images/services/bridal-makeup.jpg"
-            alt="Bridal Makeup"
-            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-          />
-        </div>
-        <div className="p-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900">Bridal Makeup</h3>
-          <p className="text-gray-600 text-sm mt-2">
-            Flawless bridal looks that last all day. Customized to your style and preference.
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            <span className="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full">Home Service</span>
-            <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Studio</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {/* Service 1: Bridal Makeup */}
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
+              <div className="h-48 overflow-hidden">
+                <img
+                  src="/images/services/bridal-makeup.jpg"
+                  alt="Bridal Makeup"
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-gray-900">Bridal Makeup</h3>
+                <p className="text-gray-600 text-sm mt-2">
+                  Flawless bridal looks that last all day. Customized to your style and preference.
+                </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <span className="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full">Home Service</span>
+                  <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Studio</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Service 2: Event Makeup */}
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
+              <div className="h-48 overflow-hidden">
+                <img
+                  src="/images/services/event-makeup.jpg"
+                  alt="Event Makeup"
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-gray-900">Event Makeup</h3>
+                <p className="text-gray-600 text-sm mt-2">
+                  Party, dinner, graduation, or special events. Look stunning with professional makeup.
+                </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <span className="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full">Home Service</span>
+                  <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Studio</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Service 3: Home Service */}
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
+              <div className="h-48 overflow-hidden">
+                <img
+                  src="/images/services/home-service.jpg"
+                  alt="Home Service"
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-gray-900">Home Service</h3>
+                <p className="text-gray-600 text-sm mt-2">
+                  We come to you! Professional makeup and beauty services at your convenience.
+                </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Mobile Service</span>
+                  <span className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">On-Site</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Service 4: Skincare & Facials */}
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
+              <div className="h-48 overflow-hidden">
+                <img
+                  src="/images/services/skincare-facials.jpg"
+                  alt="Skincare & Facials"
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-gray-900">Skincare & Facials</h3>
+                <p className="text-gray-600 text-sm mt-2">
+                  Rejuvenating facials, skin consultations, and personalized skincare treatments.
+                </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Studio Only</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Service 5: Lash & Brow */}
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
+              <div className="h-48 overflow-hidden">
+                <img
+                  src="/images/services/lash-brow.jpg"
+                  alt="Lash & Brow Services"
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-gray-900">Lash & Brow Services</h3>
+                <p className="text-gray-600 text-sm mt-2">
+                  Eyelash extensions, brow shaping, tinting, and lash lifts for a perfect look.
+                </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <span className="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full">Studio</span>
+                  <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Home Service</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Service 6: Nail Services */}
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
+              <div className="h-48 overflow-hidden">
+                <img
+                  src="/images/services/nail-services.jpg"
+                  alt="Nail Services"
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h3 className="text-xl font-bold text-gray-900">Nail Services</h3>
+                <p className="text-gray-600 text-sm mt-2">
+                  Manicure, pedicure, gel nails, and nail art. Complete your beauty look.
+                </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Studio</span>
+                  <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Home Service</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-10">
+            <a
+              href="tel:+233201404264"
+              className="inline-block bg-pink-600 text-white px-8 py-3 rounded-full hover:bg-pink-700 transition font-medium shadow-lg"
+            >
+              📞 Book a Service
+            </a>
+            <p className="text-gray-500 text-sm mt-3">
+              Call us to book your appointment today!
+            </p>
           </div>
         </div>
-      </div>
-
-      {/* Service 2: Event Makeup */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
-        <div className="h-48 overflow-hidden">
-          <img
-            src="/images/services/event-makeup.jpg"
-            alt="Event Makeup"
-            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-          />
-        </div>
-        <div className="p-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900">Event Makeup</h3>
-          <p className="text-gray-600 text-sm mt-2">
-            Party, dinner, graduation, or special events. Look stunning with professional makeup.
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            <span className="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full">Home Service</span>
-            <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Studio</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Service 3: Home Service */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
-        <div className="h-48 overflow-hidden">
-          <img
-            src="/images/services/home-service.jpg"
-            alt="Home Service"
-            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-          />
-        </div>
-        <div className="p-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900">Home Service</h3>
-          <p className="text-gray-600 text-sm mt-2">
-            We come to you! Professional makeup and beauty services at your convenience.
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Mobile Service</span>
-            <span className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">On-Site</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Service 4: Skincare & Facials */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
-        <div className="h-48 overflow-hidden">
-          <img
-            src="/images/services/skincare-facials.jpg"
-            alt="Skincare & Facials"
-            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-          />
-        </div>
-        <div className="p-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900">Skincare & Facials</h3>
-          <p className="text-gray-600 text-sm mt-2">
-            Rejuvenating facials, skin consultations, and personalized skincare treatments.
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Studio Only</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Service 5: Lash & Brow */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
-        <div className="h-48 overflow-hidden">
-          <img
-            src="/images/services/lash-brow.jpg"
-            alt="Lash & Brow Services"
-            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-          />
-        </div>
-        <div className="p-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900">Lash & Brow Services</h3>
-          <p className="text-gray-600 text-sm mt-2">
-            Eyelash extensions, brow shaping, tinting, and lash lifts for a perfect look.
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            <span className="text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full">Studio</span>
-            <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Home Service</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Service 6: Nail Services */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition group">
-        <div className="h-48 overflow-hidden">
-          <img
-            src="/images/services/nail-services.jpg"
-            alt="Nail Services"
-            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-          />
-        </div>
-        <div className="p-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900">Nail Services</h3>
-          <p className="text-gray-600 text-sm mt-2">
-            Manicure, pedicure, gel nails, and nail art. Complete your beauty look.
-          </p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Studio</span>
-            <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Home Service</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* Call to Action */}
-    <div className="text-center mt-10">
-      <a
-        href="tel:+233201404264"
-        className="inline-block bg-pink-600 text-white px-8 py-3 rounded-full hover:bg-pink-700 transition font-medium shadow-lg"
-      >
-        📞 Book a Service
-      </a>
-      <p className="text-gray-500 text-sm mt-3">
-        Call us to book your appointment today!
-      </p>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Categories Section - WITH IMAGES AND COSMETICS */}
       <section className="py-16 bg-gray-50">
@@ -236,12 +239,12 @@ export default async function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                   <div className="text-3xl mb-1">
-                    {category.name === 'Men'}
-                    {category.name === 'Women'}
-                    {category.name === 'Boys'}
-                    {category.name === 'Girls'}
-                    {category.name === 'Unisex'}
-                    {category.name === 'Cosmetics'}
+                    {category.name === 'Men' && '👔'}
+                    {category.name === 'Women' && '👗'}
+                    {category.name === 'Boys' && '👦'}
+                    {category.name === 'Girls' && '👧'}
+                    {category.name === 'Unisex' && '🔄'}
+                    {category.name === 'Cosmetics' && '💄'}
                   </div>
                   <h3 className="text-xl font-bold">{category.name}</h3>
                   <p className="text-sm opacity-80 group-hover:opacity-100 transition">Shop Collection →</p>

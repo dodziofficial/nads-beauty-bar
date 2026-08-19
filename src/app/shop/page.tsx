@@ -3,6 +3,12 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
+// ============================================
+// FIX: Make this page dynamic (always fetch fresh data)
+// ============================================
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function ShopPage() {
   const { data: products } = await supabase
     .from('products')
