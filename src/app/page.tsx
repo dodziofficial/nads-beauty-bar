@@ -14,7 +14,7 @@ export default async function Home() {
       *,
       images:product_images(*)
     `)
-    .limit(6)
+    .limit(20)
 
   if (error) {
     return (
