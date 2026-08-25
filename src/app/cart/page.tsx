@@ -2,7 +2,7 @@
 
 import { useCart } from '@/context/CartContext'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import GhanaRegions from '@/components/GhanaRegions'
@@ -20,6 +20,50 @@ export default function CartPage() {
     notes: ''
   })
   const [submitting, setSubmitting] = useState(false)
+  
+  // ============================================
+  // DELIVERY FEE STATE
+  // ============================================
+  const [deliveryFee, setDeliveryFee] = useState(30)
+  const [deliveryFees, setDeliveryFees] = useState<any[]>([])
+  const [loadingFee, setLoadingFee] = useState(true)
+
+  // ============================================
+  // FETCH DELIVERY FEES
+  // ============================================
+  useEffect(() => {
+    fetchDeliveryFees()
+  }, [])
+
+  const fetchDeliveryFees = async () => {
+    try {
+      setLoadingFee(true)
+      const { data, error } = await supabase
+        .from('delivery_fees')
+        .select('*')
+        .eq('is_active', true)
+      
+      if (error) throw error
+      
+      // Set default fee (Ashanti) or first available
+      setDeliveryFees(data || [])
+      const ashantiFee = data?.find(f => f.region === 'Ashanti')
+      if (ashantiFee) {
+        setDeliveryFee(ashantiFee.fee)
+      } else if (data && data.length > 0) {
+        setDeliveryFee(data[0].fee)
+      }
+    } catch (error) {
+      console.error('Error fetching delivery fees:', error)
+    } finally {
+      setLoadingFee(false)
+    }
+  }
+
+  const updateDeliveryFee = (region: string) => {
+    const fee = deliveryFees.find(f => f.region === region)
+    setDeliveryFee(fee?.fee || 30)
+  }
 
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -108,7 +152,6 @@ export default function CartPage() {
       // ============================================
       // Calculate totals
       const subtotal = totalPrice
-      const deliveryFee = 30
       const grandTotal = subtotal + deliveryFee
 
       // Create the order
@@ -169,7 +212,6 @@ export default function CartPage() {
 
         if (itemError) {
           console.error('Error saving order item:', itemError)
-          // Don't throw, just log - order was already created
         }
       }
 
@@ -220,7 +262,7 @@ export default function CartPage() {
       const whatsappNumber = '233201404264'
       window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank')
 
-      alert(`✅ Order placed successfully!\n\nOrder #: ${orderNumber}\nStock deducted:\n${stockUpdates.map(s => `- ${s.product_name}: ${s.previous} → ${s.new}`).join('\n')}`)
+      alert(`✅ Order placed successfully!\n\nOrder #: ${orderNumber}\nDelivery Fee: GHS ${deliveryFee}\nStock deducted:\n${stockUpdates.map(s => `- ${s.product_name}: ${s.previous} → ${s.new}`).join('\n')}`)
 
       clearCart()
       setCheckout(false)
@@ -312,12 +354,12 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between text-gray-700">
                   <span>Delivery</span>
-                  <span>GHS 30</span>
+                  <span>GHS {deliveryFee}</span>
                 </div>
               </div>
               <div className="flex justify-between font-bold text-lg py-4">
                 <span className="text-gray-900">Total</span>
-                <span className="text-pink-600">GHS {totalPrice + 30}</span>
+                <span className="text-pink-600">GHS {totalPrice + deliveryFee}</span>
               </div>
 
               {!checkout ? (
@@ -362,7 +404,10 @@ export default function CartPage() {
                   />
                   <GhanaRegions
                     value={customer.region}
-                    onChange={(value) => setCustomer({...customer, region: value})}
+                    onChange={(value) => {
+                      setCustomer({...customer, region: value})
+                      updateDeliveryFee(value)
+                    }}
                     required
                     className="w-full border rounded-lg px-4 py-2 text-gray-900 focus:ring-2 focus:ring-pink-500"
                   />

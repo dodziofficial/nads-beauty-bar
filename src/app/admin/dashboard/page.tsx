@@ -172,6 +172,10 @@ export default function AdminDashboard() {
             <Link href="/admin/categories" className="block px-4 py-2 hover:bg-gray-50 rounded-lg transition text-gray-700">
               📂 Categories
             </Link>
+            {/* 👇 ADDED DELIVERY LINK */}
+            <Link href="/admin/delivery" className="block px-4 py-2 hover:bg-gray-50 rounded-lg transition text-gray-700">
+              🚚 Delivery
+            </Link>
             <button
               onClick={() => {
                 localStorage.removeItem('adminAuth')
