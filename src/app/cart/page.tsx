@@ -237,7 +237,7 @@ export default function CartPage() {
       message += `Subtotal: GHS ${subtotal}\n`
       message += `Delivery Fee: GHS ${deliveryFee}\n`
       message += `----------------------------------------\n`
-      message += `TOTAL: GHS ${grandTotal}\n`
+      message += `TOTAL: GHS ${grandTotal.toFixed(2)}\n`
       message += `----------------------------------------\n\n`
 
       message += `Customer Details:\n`
@@ -350,7 +350,7 @@ export default function CartPage() {
               <div className="space-y-2 border-b pb-4">
                 <div className="flex justify-between text-gray-700">
                   <span>Subtotal</span>
-                  <span>GHS {totalPrice}</span>
+                  <span>GHS {totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-700">
                   <span>Delivery</span>
@@ -359,7 +359,7 @@ export default function CartPage() {
               </div>
               <div className="flex justify-between font-bold text-lg py-4">
                 <span className="text-gray-900">Total</span>
-                <span className="text-pink-600">GHS {totalPrice + deliveryFee}</span>
+                <span className="text-pink-600">GHS {(totalPrice + deliveryFee).toFixed(2)}</span>
               </div>
 
               {!checkout ? (
