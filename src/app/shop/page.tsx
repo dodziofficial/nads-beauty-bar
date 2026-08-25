@@ -11,12 +11,9 @@ export const revalidate = 0
 
 export default async function ShopPage() {
   const { data: products } = await supabase
-    .from('products')
-    .select(`
-      *,
-      images:product_images(*)
-    `)
-    .eq('status', 'active')
+  .from('products')
+  .select(`*, images:product_images(*)`)
+  .eq('status', 'active') 
 
   return (
     <main className="min-h-screen bg-gray-50">

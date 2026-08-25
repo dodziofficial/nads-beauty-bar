@@ -26,13 +26,10 @@ export default async function GenderPage({ params }: GenderPageProps) {
   }
 
   const { data: products } = await supabase
-    .from('products')
-    .select(`
-      *,
-      images:product_images(*)
-    `)
-    .eq('gender', gender)
-    .eq('status', 'active')
+  .from('products')
+  .select(`*, images:product_images(*)`)
+  .eq('gender', gender)
+  .eq('status', 'active')  
 
   const genderNames: Record<string, string> = {
     men: "Men's",

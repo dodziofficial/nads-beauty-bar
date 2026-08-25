@@ -12,12 +12,10 @@ export const revalidate = 0
 
 export default async function Home() {
   const { data: products, error } = await supabase
-    .from('products')
-    .select(`
-      *,
-      images:product_images(*)
-    `)
-    .limit(20)
+  .from('products')
+  .select(`*, images:product_images(*)`)
+  .eq('status', 'active')  // ← Add this line
+  .limit(20)
 
   if (error) {
     return (
